@@ -11,8 +11,8 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 
-		//IniFile file = new IniFile("initialisation.ini");
-		IniFile file = new IniFile("fig3.ini");
+		IniFile file = new IniFile("initialisation.ini");
+		//IniFile file = new IniFile("fig3.ini");
 		SimProperties sp = new SimProperties(file);
 		
 		sp.simulationParams();
@@ -54,8 +54,8 @@ public class Main {
 		//nb_sim = 15;
 		//nb_sim = 10;
 		//nb_it = 10;
-		nb_sim = 1;
-		nb_it = 2000;
+		//nb_sim = 1;
+		//nb_it = 2000;
 		
 		// Write ALL data
 		FileWriter fullWriter = new FileWriter("data_avg_s"+sp.stratProie+sp.stratPredateur+"_fp"+sp.fieldProie+"_fa"+sp.field+"_np"+sp.nbproie+"_na"+sp.nbrobot+".txt");

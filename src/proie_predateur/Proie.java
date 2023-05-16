@@ -211,7 +211,7 @@ public class Proie extends GridTurtlebot {
 		
         
 		aStar.setBlocks(blocksArray);
-		// On aurotise les mouvements diagonaux si isRunning = true
+		// On autorise les mouvements diagonaux si isRunning = true
         List<Node> path = aStar.findPath(isRunning);
         
         /*for (Node node : path) {
@@ -286,6 +286,9 @@ public class Proie extends GridTurtlebot {
 	
 	public void checkLeaderAndChassed() {
 		int[][] FoV = this.getPerception();
+		if(strategy == 2) {
+			FoV = updateFoV(FoV);
+		}
 		this.isLeader = true;
 		this.isRunning = false;
 		this.predatorList.clear();
@@ -340,6 +343,35 @@ public class Proie extends GridTurtlebot {
 		}
 		return position;
 	}
+	
+	int[][] updateFoV(int[][] FoV){
+		int[][] uFoV = new int[FoV.length][FoV[0].length];
+		System.arraycopy(FoV, 0, uFoV, 0, FoV.length);
+		for(int i = 0; i < FoV.length; i++) {
+			for(int j = 0; j < FoV[0].length; j++) {
+				if(FoV[i][j] > 0 & FoV[i][j] < nbRobot+1) {
+					if(i>0) {
+						uFoV[i-1][j] = -1;
+					}
+					if(i<FoV.length-1) {
+						uFoV[i+1][j] = -1;
+					}
+					if(j>0) {
+						uFoV[i][j-1] = -1;
+					}
+					if(j<FoV[0].length-1) {
+						uFoV[i][j+1] = -1;
+					}
+				}
+			}
+		}
+		
+		return uFoV;
+	}
+	
+	
+	
+	
 	
 	public int getShortestDistanceFromKillerList(int[] position) {
 		int D = 4*field*field;
